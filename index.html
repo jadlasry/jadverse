@@ -115,7 +115,7 @@ button{transition:transform .12s,box-shadow .12s,filter .2s}button:hover{filter:
 .box{animation:pi .4s cubic-bezier(.2,1.4,.4,1)}@keyframes pi{from{scale:.8;opacity:0}}
 #game{animation:gin .5s}@keyframes gin{from{opacity:0;scale:.97}}
 .opp{transition:border-color .3s,box-shadow .3s}
-#hand .card{transition:transform .3s cubic-bezier(.2,1.3,.4,1),box-shadow:0 25px,filter .3s}
+#hand .card{transition:transform .3s cubic-bezier(.2,1.3,.4,1),box-shadow .25s,filter .3s}
 html:not([data-theme=neon]){background:var(--bg);color-scheme:light;
 --bg:#e9e0cb;--s2:#f4eddc;--sf:#faf5e8;--ink:#2d3a28;--mu:#7b8068;--ac:#5a7a47;--ac2:#a9b98a;--ln:#d3c7a6;--glow:#e7c76a;--f1:#6f8f55;--f2:#445c34;--rim:#d9c9a0;}
 html:not([data-theme=neon]) body{background:radial-gradient(circle at 50% 25%,var(--s2),var(--bg) 70%);color:var(--ink)}
@@ -193,7 +193,7 @@ html[data-theme=olive]{--bg:#f7f8f1;--s2:#fff;--sf:#fff;--ink:#272b17;--mu:#8086
 @keyframes gl2{to{box-shadow:0 0 0 3px #fffaf0,0 0 26px 6px var(--glow)}}
 @keyframes breath{50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--ac) 14%,transparent),0 14px 30px #4a3d2422}}
 html.calm *,html.calm *::before,html.calm *::after{animation:none!important;transition-duration:.01s!important}
- 
+ 
 .jv{font-size:clamp(2.6rem,11vw,5rem);font-weight:800;line-height:1.1;text-align:center;background:linear-gradient(100deg,var(--ac,#ff2e7e),var(--glow,#ffd800),var(--ac2,#00e5ff),var(--ac,#ff2e7e));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 6s linear infinite;filter:drop-shadow(0 6px 18px #0003)}
 .jv small{display:block;font-size:.8rem;letter-spacing:5px;color:var(--mu,#d9ccff);-webkit-text-fill-color:var(--mu,#d9ccff);font-weight:500}
 @keyframes shim{to{background-position:300%}}
@@ -207,7 +207,7 @@ html.calm *,html.calm *::before,html.calm *::after{animation:none!important;tran
 select.in{appearance:none}.hud{padding-right:172px}
 .code{font:800 .75rem 'DM Sans';letter-spacing:2px;color:var(--mu,#d9ccff);cursor:pointer}
 .code b{display:block;font:800 2.6rem Fraunces;letter-spacing:8px;color:var(--ac,#ffd800);background:var(--s2,#0003);border-radius:16px;padding:6px 10px;margin:4px 0}
- 
+ 
 .big{position:relative;overflow:hidden}.big::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#ffffff55 50%,transparent 70%);translate:-100% 0;animation:sheen 3.5s infinite;pointer-events:none}
 @keyframes sheen{to{translate:100% 0}}
 img.emoji{height:1.15em;width:1.15em;margin:0 .06em;vertical-align:-.2em;display:inline-block;pointer-events:none}
@@ -227,218 +227,65 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .06em;vertical-align:-.2em;display
 </head>
 <body>
 <div id="splash"><div class="sj">✦ 𝕁𝕒𝕕𝕧𝕖𝕣𝕤𝕖 ✦</div><div class="sb"></div></div><canvas id="fx"></canvas><div id="toast"></div><div id="bang"></div><div class="foot">⚡ CRÉÉ PAR <b>J.LSRY63</b></div>
- 
+ 
 <div id="lobby">
-  <div class="jv">✦ 𝕁𝕒𝕕𝕧𝕖𝕣𝕤𝕖 ✦<small>⋆｡°✩ PARTY GAMES ✩°｡⋆</small></div>
-  <div class="by">⚡ CRÉÉ PAR J.LSRY63 ⚡</div>
-  <div class="chips"><span>🤖 Bots 3 niveaux</span><span>⏱️ Chrono</span><span>🌀 Règles folles</span><span>🌐 En ligne</span><span>🎯 UNO !</span></div>
-  <div class="fl" style="left:6%;top:12%;background:#e53935"></div><div class="fl" style="right:7%;top:18%;background:#1e6bff;animation-delay:-2s"></div><div class="fl" style="left:12%;bottom:14%;background:#ffc400;animation-delay:-4s"></div><div class="fl" style="right:12%;bottom:10%;background:#1fa855;animation-delay:-6s"></div>
-  
-  <!-- SÉLECTION DES JEUX -->
-  <div class="games" id="gt">
-    <button class="gt on" data-g="uno" onclick="gsel('uno')">🎴<br>UNO</button>
-    <button class="gt" data-g="imp" onclick="gsel('imp')">🕵️<br>IMPOSTEUR</button>
-    <button class="gt" data-g="lg" onclick="gsel('lg')">🐺<br>LOUP-GAROU</button>
-    <button class="gt" data-g="av" onclick="gsel('av')">🎭<br>ACTION / VÉRITÉ</button>
-  </div>
-
-  <!-- MENU EN LIGNE -->
-  <div class="menu hidden" id="pmenu">
-    <input class="in" id="pn2" placeholder="Ton pseudo" maxlength="12" oninput="$('pname').value=this.value">
-    <div class="row" id="pgw"><button class="pill on" onclick="pill(this,'g','m')">👨 UN MEC</button><button class="pill" onclick="pill(this,'g','f')">👩 UNE FILLE</button></div>
-    <div id="plw"><div class="lab">Langue des mots</div><select class="in" id="plang"><option value="fr">Français</option><option value="ary">Darija marocaine</option><option value="ar">العربية</option><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="tr">Türkçe</option></select></div>
-    <button class="big" onclick="pnew()">🎟️ CRÉER LA TABLE & OBTENIR LE CODE (jusqu'à 20)</button>
-    <div class="row"><input class="in" id="pin" placeholder="CODE" maxlength="6" style="margin:0"><button class="sm w" onclick="pjoin()">REJOINDRE</button></div>
-    <button class="sm w" onclick="plocal()">📱 UN SEUL TÉLÉPHONE (on est ensemble)</button><div class="lab" style="text-align:center">💬 chat + 🎙️ micro inclus (en ligne)</div>
-  </div>
-
-  <!-- MENU LOCAL / BOTS / LANCEMENT -->
-  <div class="menu" id="umenu">
-    <input class="in" id="pname" placeholder="Ton pseudo" maxlength="12" />
-    <div id="box-bots">
-      <div><div class="lab">Niveau des bots</div><div class="row" id="pdif">
-        <button class="pill" onclick="pill(this,'dif',1)">😴 FACILE</button><button class="pill on" onclick="pill(this,'dif',2)">😎 NORMAL</button><button class="pill" onclick="pill(this,'dif',3)">😈 EXPERT</button></div></div>
-      <div><div class="lab">Nombre de bots</div><div class="row" id="pnb">
-        <button class="pill on" onclick="pill(this,'nb',1)">1</button><button class="pill" onclick="pill(this,'nb',2)">2</button><button class="pill" onclick="pill(this,'nb',3)">3</button></div></div>
-      <label class="chk"><input type="checkbox" id="crazy"> Règles folles : 0 = les mains tournent, 7 = échange</label>
-      <label class="chk"><input type="checkbox" id="timer" checked> Chrono 20 s par tour</label>
-    </div>
-    <div class="row" id="gender-av-wrap" style="margin-top:6px;">
-      <button class="pill on" id="btn-mec" onclick="pill(this,'av_g','m')">👨 JE SUIS UN MEC</button>
-      <button class="pill" id="btn-fille" onclick="pill(this,'av_g','f')">👩 JE SUIS UNE FILLE</button>
-    </div>
-    <button class="big" id="main-start-btn" onclick="startGameAction()">⚔️ LANCER LA PARTIE</button>
-    <div class="row"><button class="sm" onclick="online()">🌐 CRÉER EN LIGNE</button><input class="in" id="rin" placeholder="CODE" maxlength="6" style="padding:8px"><button class="sm w" onclick="join()">REJOINDRE</button></div>
-  </div>
+  <div class="jv">✦ 𝕁𝕒𝕕𝕧𝕖𝕣𝕤𝕖 ✦<small>⋆｡°✩ PARTY GAMES ✩°｡⋆</small></div>
+  <div class="by">⚡ CRÉÉ PAR J.LSRY63 ⚡</div>
+  <div class="chips"><span>🤖 Bots 3 niveaux</span><span>⏱️ Chrono</span><span>🌀 Règles folles</span><span>🌐 En ligne</span><span>🎯 UNO !</span></div>
+  <div class="fl" style="left:6%;top:12%;background:#e53935"></div><div class="fl" style="right:7%;top:18%;background:#1e6bff;animation-delay:-2s"></div><div class="fl" style="left:12%;bottom:14%;background:#ffc400;animation-delay:-4s"></div><div class="fl" style="right:12%;bottom:10%;background:#1fa855;animation-delay:-6s"></div>
+  <div class="games" id="gt"><button class="gt on" data-g="uno" onclick="gsel('uno')">🎴<br>UNO</button><button class="gt" data-g="imp" onclick="gsel('imp')">🕵️<br>IMPOSTEUR</button><button class="gt" data-g="lg" onclick="gsel('lg')">🐺<br>LOUP-GAROU</button><button class="gt" data-g="av" onclick="gsel('av')">🎭<br>ACTION / VÉRITÉ</button></div>
+  <div class="menu hidden" id="pmenu">
+    <input class="in" id="pn2" placeholder="Ton pseudo" maxlength="12" oninput="$('pname').value=this.value">
+    <div class="row" id="pgw"><button class="pill on" onclick="pill(this,'g','m')">👨 UN MEC</button><button class="pill" onclick="pill(this,'g','f')">👩 UNE FILLE</button></div>
+    <div id="plw"><div class="lab">Langue des mots</div><select class="in" id="plang"><option value="fr">Français</option><option value="ary">Darija marocaine</option><option value="ar">العربية</option><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="tr">Türkçe</option></select></div>
+    <button class="big" onclick="pnew()">🎟️ CRÉER LA TABLE & OBTENIR LE CODE (jusqu'à 20)</button>
+    <div class="row"><input class="in" id="pin" placeholder="CODE" maxlength="6" style="margin:0"><button class="sm w" onclick="pjoin()">REJOINDRE</button></div>
+    <button class="sm w" onclick="plocal()">📱 UN SEUL TÉLÉPHONE (on est ensemble)</button><div class="lab" style="text-align:center">💬 chat + 🎙️ micro inclus (en ligne)</div></div>
+  <div class="menu" id="umenu">
+    <input class="in" id="pname" placeholder="Ton pseudo" maxlength="12" />
+    <div><div class="lab">Niveau des bots</div><div class="row" id="pdif">
+      <button class="pill" onclick="pill(this,'dif',1)">😴 FACILE</button><button class="pill on" onclick="pill(this,'dif',2)">😎 NORMAL</button><button class="pill" onclick="pill(this,'dif',3)">😈 EXPERT</button></div></div>
+    <div><div class="lab">Nombre de bots</div><div class="row" id="pnb">
+      <button class="pill on" onclick="pill(this,'nb',1)">1</button><button class="pill" onclick="pill(this,'nb',2)">2</button><button class="pill" onclick="pill(this,'nb',3)">3</button></div></div>
+    <label class="chk"><input type="checkbox" id="crazy"> Règles folles : 0 = les mains tournent, 7 = échange</label>
+    <label class="chk"><input type="checkbox" id="timer" checked> Chrono 20 s par tour</label>
+    <button class="big" onclick="solo()">⚔️ JOUER CONTRE LES BOTS</button>
+    <div class="row"><button class="sm" onclick="online()">🌐 CRÉER EN LIGNE</button><input class="in" id="rin" placeholder="CODE" maxlength="6" style="padding:8px"><button class="sm w" onclick="join()">REJOINDRE</button></div>
+  </div>
 </div>
- 
+ 
 <div id="game" class="hidden">
-  <div class="hud"><div class="badge" id="badge"></div><div id="turn"></div><span class="hby">⚡ J.LSRY63</span><button class="leave" onclick="leave()">QUITTER</button></div>
-  <div class="barw"><div id="bar"></div></div>
-  <div id="opps"></div>
-  <div id="mid"><div id="table"></div><div id="dir"></div><div class="chip red" id="cc"></div>
-    <div class="card back" id="draw" onclick="drawMine()"><i></i><b>UNO</b><em id="dk"></em></div>
-    <div class="card red" id="pile"></div>
-    <div id="tick"></div>
-  </div>
-  <div id="react"></div>
-  <div id="me"></div>
-  <button class="hidden" id="uno" onclick="act(d=>callUno(d,myId))">UNO !</button>
-  <div id="hand"></div>
+  <div class="hud"><div class="badge" id="badge"></div><div id="turn"></div><span class="hby">⚡ J.LSRY63</span><button class="leave" onclick="leave()">QUITTER</button></div>
+  <div class="barw"><div id="bar"></div></div>
+  <div id="opps"></div>
+  <div id="mid"><div id="table"></div><div id="dir"></div><div class="chip red" id="cc"></div>
+    <div class="card back" id="draw" onclick="drawMine()"><i></i><b>UNO</b><em id="dk"></em></div>
+    <div class="card red" id="pile"></div>
+    <div id="tick"></div>
+  </div>
+  <div id="react"></div>
+  <div id="me"></div>
+  <button class="hidden" id="uno" onclick="act(d=>callUno(d,myId))">UNO !</button>
+  <div id="hand"></div>
 </div>
- 
+ 
 <div class="ov hidden" id="wr"><div class="box"><h2>SALLE D'ATTENTE</h2>
-  <div class="lab">CODE (clique pour copier)</div><div class="badge" id="wcode" style="font-size:1.4rem" onclick="navigator.clipboard&&navigator.clipboard.writeText(room);toast('Code copié')"></div>
-  <div id="wl"></div>
-  <div id="hostb"><div class="lab" style="margin-bottom:6px">Ajouter un bot</div><div class="row"><button class="pill" onclick="addBot(1)">😴 FACILE</button><button class="pill" onclick="addBot(2)">😎 NORMAL</button><button class="pill" onclick="addBot(3)">😈 EXPERT</button></div>
-    <button class="big" style="width:100%;margin-top:10px" onclick="startGame()">▶ DÉMARRER</button></div>
-  <div id="ww" class="lab">⏳ En attente de l'hôte…</div>
-  <button class="sm" onclick="leave()">QUITTER</button></div></div>
+  <div class="lab">CODE (clique pour copier)</div><div class="badge" id="wcode" style="font-size:1.4rem" onclick="navigator.clipboard&&navigator.clipboard.writeText(room);toast('Code copié')"></div>
+  <div id="wl"></div>
+  <div id="hostb"><div class="lab" style="margin-bottom:6px">Ajouter un bot</div><div class="row"><button class="pill" onclick="addBot(1)">😴 FACILE</button><button class="pill" onclick="addBot(2)">😎 NORMAL</button><button class="pill" onclick="addBot(3)">😈 EXPERT</button></div>
+    <button class="big" style="width:100%;margin-top:10px" onclick="startGame()">▶ DÉMARRER</button></div>
+  <div id="ww" class="lab">⏳ En attente de l'hôte…</div>
+  <button class="sm" onclick="leave()">QUITTER</button></div></div>
 <div class="ov hidden" id="pk"><div id="picker">
-  <div style="background:#1e6bff" onclick="pick('blue')"></div><div style="background:#1fa855" onclick="pick('green')"></div>
-  <div style="background:#e53935" onclick="pick('red')"></div><div style="background:#ffc400" onclick="pick('yellow')"></div></div></div>
+  <div style="background:#1e6bff" onclick="pick('blue')"></div><div style="background:#1fa855" onclick="pick('green')"></div>
+  <div style="background:#e53935" onclick="pick('red')"></div><div style="background:#ffc400" onclick="pick('yellow')"></div></div></div>
 <div class="ov hidden" id="over"><div class="box"><h2 id="ot"></h2><p id="op" style="font-weight:800;font-size:1.1rem"></p><div id="sc" class="lab"></div><div class="by" style="align-self:center">⚡ CRÉÉ PAR J.LSRY63</div>
-  <button class="big hidden" id="again" onclick="act(d=>({...fresh(d.players),turn:0,dir:1,winner:null,uno:null,started:true,ev:ev(d,'Nouvelle manche !','🔁'),...tm(d,0)}))">🔁 REVANCHE</button>
-  <button class="sm" onclick="leave()">MENU</button></div></div>
- 
+  <button class="big hidden" id="again" onclick="act(d=>({...fresh(d.players),turn:0,dir:1,winner:null,uno:null,started:true,ev:ev(d,'Nouvelle manche !','🔁'),...tm(d,0)}))">🔁 REVANCHE</button>
+  <button class="sm" onclick="leave()">MENU</button></div></div>
+ 
 <div class="ov hidden" id="party"><div class="box" id="pb" style="max-height:92vh;overflow:auto;width:min(560px,100%)"></div></div>
 <button class="fb hidden" id="cbtn" style="right:64px" onclick="$('chat').classList.toggle('hidden');this.classList.remove('dot')" title="Chat">💬</button>
 <button class="fb hidden" id="mbtn" style="right:118px" onclick="mic()" title="Micro">🎙️</button>
 <div id="chat" class="hidden"><div id="cm"></div><div class="row"><input class="in" id="ci" placeholder="Écris un message…" maxlength="200" style="margin:0;padding:8px" onkeydown="if(event.key==='Enter')say()"><button class="sm" style="flex:0 0 50px" onclick="say()">➤</button></div></div>
 <button id="gear" onclick="$('set').classList.toggle('hidden')" title="Son & musique">⚙️</button>
-
-<script>
-// --- LISTE DE JOUEURS ALÉATOIRES POUR ACTION OU VÉRITÉ ---
-const AVAILABLE_PLAYERS = [
-  { name: "Ines", gender: "f" },
-  { name: "Thomas", gender: "m" },
-  { name: "Sarah", gender: "f" },
-  { name: "Lucas", gender: "m" },
-  { name: "Chloé", gender: "f" },
-  { name: "Mehdi", gender: "m" },
-  { name: "Léa", gender: "f" },
-  { name: "Enzo", gender: "m" }
-];
-
-const AV_QUESTIONS_BOY = [
-  "Quelle fille dans cette pièce te fait le plus craquer physiquement et pourquoi ?",
-  "Si tu devais passer une nuit torride avec l'une des filles présentes ici, tu choisirais qui ?",
-  "Quel est ton fantasme le plus chaud à réaliser avec une fille du groupe ?",
-  "C'est quoi le truc le plus excitant que tu aimerais faire à la fille de ton choix ici ?",
-  "Quelle partie du corps d'une fille ici présentes te donne le plus envie de la toucher ?"
-];
-
-const AV_ACTIONS_BOY = [
-  "Assieds-toi immédiatement à califourchon sur les genoux de la fille de ton choix et reste collé à elle pendant 2 tours.",
-  "Choisis une fille du groupe et fais-lui une grosse galoche bien baveuse et passionnée pendant 30 secondes.",
-  "Lèche le cou ou l'oreille de la fille de ton choix de manière ultra sensuelle pendant 15 secondes.",
-  "Mets ta main sous le t-shirt (sur sa peau) de la fille de ton choix pendant 20 secondes.",
-  "Murmure des mots doux et ultra crus à l'oreille de la fille que tu désires le plus dans la pièce."
-];
-
-const AV_QUESTIONS_GIRL = [
-  "Quel garçon dans cette pièce te fait le plus d'effet et pourquoi ?",
-  "Si tu devais te faire galocher par un des gars ici pendant 1 minute, tu choisirais qui ?",
-  "Quel est ton plus grand fantasme torride avec l'un des mecs de ce groupe ?",
-  "Quel garçon ici a le corps le plus attirant selon toi ? Détaille.",
-  "Quelle est la chose la plus perverse que tu aimerais qu'un mec te fasse ce soir ?"
-];
-
-const AV_ACTIONS_GIRL = [
-  "Assieds-toi directement sur les genoux du mec de ton choix et reste blottie contre lui pendant 2 tours.",
-  "Choisis un mec du groupe et embrasse-le goulûment (avec la langue) pendant 30 secondes chrono.",
-  "Lèche sensuellement le cou du mec de ton choix pendant 15 secondes sous les yeux de tous.",
-  "Mets ta main sous les vêtements (sur la peau nue) du mec de ton choix pendant 20 secondes.",
-  "Plaque ton corps contre celui du mec de ton choix et regarde-le fixement dans les yeux en respirant fort pendant 30 secondes."
-];
-
-let currentGameType = 'uno';
-let myGender = 'm';
-
-function $(id) { return document.getElementById(id); }
-
-function gsel(g) {
-  currentGameType = g;
-  document.querySelectorAll('.gt').forEach(b => b.classList.remove('on'));
-  document.querySelector(`[data-g="${g}"]`).classList.add('on');
-  
-  // Si c'est Action / Vérité, on affiche les boutons de genre au lieu des bots
-  if(g === 'av') {
-    $('box-bots').classList.add('hidden');$('gender-av-wrap').style.display = 'flex';
-  } else {
-    $('box-bots').classList.remove('hidden');$('gender-av-wrap').style.display = 'none';
-  }
-}
-
-function pill(el, type, val) {
-  el.parentNode.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
-  el.classList.add('on');
-  if(type === 'av_g') {
-    myGender = val;
-  }
-}
-
-// Fonction de lancement globale selon le jeu choisi
-function startGameAction() {
-  if(currentGameType === 'av') {
-    startHotTruthOrDareRandom();
-  } else {
-    // Lancement normal des autres jeux (UNO, Loup-Garou, Imposteur)
-    $('lobby').classList.add('hidden');$('game').classList.remove('hidden');
-    alert("Mode " + currentGameType.toUpperCase() + " lancé ! (Reste à connecter avec ton moteur de jeu d'origine)");
-  }
-}
-
-// Tirage aléatoire absolu pour Action ou Vérité
-function startHotTruthOrDareRandom() {
-  const customName = $('pname') ?$('pname').value.trim() : "";
-  let pool = [...AVAILABLE_PLAYERS];
-  if(customName) {
-    pool.push({ name: customName, gender: myGender });
-  }
-
-  // Le hasard choisit un joueur parmi tout le monde sans ordre fixe
-  const activePlayer = pool[Math.floor(Math.random() * pool.length)];
-  const isBoy = (activePlayer.gender === 'm');
-  const isTruth = Math.random() < 0.5;
-  
-  let list = isBoy ? (isTruth ? AV_QUESTIONS_BOY : AV_ACTIONS_BOY) : (isTruth ? AV_QUESTIONS_GIRL : AV_ACTIONS_GIRL);
-  const item = list[Math.floor(Math.random() * list.length)];
-  
-  const boxHtml = `
-    <h2>🔥 ACTION OU VÉRITÉ (HASARD TOTAL) 🔥</h2>
-    <p style="font-size:1.3rem; color:var(--y); margin: 10px 0;">Le hasard a désigné : <b>${activePlayer.name}</b> (${isBoy ? 'Garçon 👨' : 'Fille 👩'}) !</p>
-    <div style="background:rgba(255,46,126,0.25); border:3px solid var(--pk); padding:15px; border-radius:15px; font-size:1.1rem; font-weight:bold; margin: 10px 0; text-shadow:0 2px 4px #000;">
-      ${isTruth ? "💬 VÉRITÉ : " : "⚡ ACTION PIQUANTE : "} ${item}
-    </div>
-    <div class="row" style="margin-top:15px;">
-      <button class="big" onclick="startHotTruthOrDareRandom()">Tour Suivant (Hasard) 🎲</button>
-      <button class="sm" style="background:#ff3b30; color:#fff;" onclick="closePartyModal()">Quitter</button>
-    </div>
-  `;
-  $('pb').innerHTML = boxHtml;
-  $('party').classList.remove('hidden');
-}
-
-function closePartyModal() {
-  $('party').classList.add('hidden');$('lobby').classList.remove('hidden');
-}
-
-function pnew() { alert("Mode en ligne initialisé !"); }
-function pjoin() { alert("Rejoindre la table..."); }
-function plocal() { alert("Mode un seul téléphone activé !"); }
-function solo() { startGameAction(); }
-function online() { alert("Création en ligne..."); }
-function join() { alert("Rejoindre..."); }
-function leave() { location.reload(); }
-function drawMine() { alert("Carte piochee !"); }
-function mic() { alert("Micro activé"); }
-function say() { alert("Message envoyé"); }
-
-// Cache les options de genre par défaut au chargement
-window.addEventListener('DOMContentLoaded', () => {
-  $('gender-av-wrap').style.display = 'none';
-});
-</script>
-</body>
-</html>
+<
