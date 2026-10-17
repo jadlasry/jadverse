@@ -115,7 +115,7 @@ button{transition:transform .12s,box-shadow .12s,filter .2s}button:hover{filter:
 .box{animation:pi .4s cubic-bezier(.2,1.4,.4,1)}@keyframes pi{from{scale:.8;opacity:0}}
 #game{animation:gin .5s}@keyframes gin{from{opacity:0;scale:.97}}
 .opp{transition:border-color .3s,box-shadow .3s}
-#hand .card{transition:transform .3s cubic-bezier(.2,1.3,.4,1),box-shadow .25s,filter .3s}
+#hand .card{transition:transform .3s cubic-bezier(.2,1.3,.4,1),box-shadow:0 25px,filter .3s}
 html:not([data-theme=neon]){background:var(--bg);color-scheme:light;
 --bg:#e9e0cb;--s2:#f4eddc;--sf:#faf5e8;--ink:#2d3a28;--mu:#7b8068;--ac:#5a7a47;--ac2:#a9b98a;--ln:#d3c7a6;--glow:#e7c76a;--f1:#6f8f55;--f2:#445c34;--rim:#d9c9a0;}
 html:not([data-theme=neon]) body{background:radial-gradient(circle at 50% 25%,var(--s2),var(--bg) 70%);color:var(--ink)}
@@ -233,23 +233,41 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .06em;vertical-align:-.2em;display
   <div class="by">⚡ CRÉÉ PAR J.LSRY63 ⚡</div>
   <div class="chips"><span>🤖 Bots 3 niveaux</span><span>⏱️ Chrono</span><span>🌀 Règles folles</span><span>🌐 En ligne</span><span>🎯 UNO !</span></div>
   <div class="fl" style="left:6%;top:12%;background:#e53935"></div><div class="fl" style="right:7%;top:18%;background:#1e6bff;animation-delay:-2s"></div><div class="fl" style="left:12%;bottom:14%;background:#ffc400;animation-delay:-4s"></div><div class="fl" style="right:12%;bottom:10%;background:#1fa855;animation-delay:-6s"></div>
-  <div class="games" id="gt"><button class="gt on" data-g="uno" onclick="gsel('uno')">🎴<br>UNO</button><button class="gt" data-g="imp" onclick="gsel('imp')">🕵️<br>IMPOSTEUR</button><button class="gt" data-g="lg" onclick="gsel('lg')">🐺<br>LOUP-GAROU</button><button class="gt" data-g="av" onclick="gsel('av')">🎭<br>ACTION / VÉRITÉ</button></div>
+  
+  <!-- SÉLECTION DES JEUX -->
+  <div class="games" id="gt">
+    <button class="gt on" data-g="uno" onclick="gsel('uno')">🎴<br>UNO</button>
+    <button class="gt" data-g="imp" onclick="gsel('imp')">🕵️<br>IMPOSTEUR</button>
+    <button class="gt" data-g="lg" onclick="gsel('lg')">🐺<br>LOUP-GAROU</button>
+    <button class="gt" data-g="av" onclick="gsel('av')">🎭<br>ACTION / VÉRITÉ</button>
+  </div>
+
+  <!-- MENU EN LIGNE -->
   <div class="menu hidden" id="pmenu">
     <input class="in" id="pn2" placeholder="Ton pseudo" maxlength="12" oninput="$('pname').value=this.value">
     <div class="row" id="pgw"><button class="pill on" onclick="pill(this,'g','m')">👨 UN MEC</button><button class="pill" onclick="pill(this,'g','f')">👩 UNE FILLE</button></div>
     <div id="plw"><div class="lab">Langue des mots</div><select class="in" id="plang"><option value="fr">Français</option><option value="ary">Darija marocaine</option><option value="ar">العربية</option><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="tr">Türkçe</option></select></div>
     <button class="big" onclick="pnew()">🎟️ CRÉER LA TABLE & OBTENIR LE CODE (jusqu'à 20)</button>
     <div class="row"><input class="in" id="pin" placeholder="CODE" maxlength="6" style="margin:0"><button class="sm w" onclick="pjoin()">REJOINDRE</button></div>
-    <button class="sm w" onclick="plocal()">📱 UN SEUL TÉLÉPHONE (on est ensemble)</button><div class="lab" style="text-align:center">💬 chat + 🎙️ micro inclus (en ligne)</div></div>
+    <button class="sm w" onclick="plocal()">📱 UN SEUL TÉLÉPHONE (on est ensemble)</button><div class="lab" style="text-align:center">💬 chat + 🎙️ micro inclus (en ligne)</div>
+  </div>
+
+  <!-- MENU LOCAL / BOTS / LANCEMENT -->
   <div class="menu" id="umenu">
     <input class="in" id="pname" placeholder="Ton pseudo" maxlength="12" />
-    <div><div class="lab">Niveau des bots</div><div class="row" id="pdif">
-      <button class="pill" onclick="pill(this,'dif',1)">😴 FACILE</button><button class="pill on" onclick="pill(this,'dif',2)">😎 NORMAL</button><button class="pill" onclick="pill(this,'dif',3)">😈 EXPERT</button></div></div>
-    <div><div class="lab">Nombre de bots</div><div class="row" id="pnb">
-      <button class="pill on" onclick="pill(this,'nb',1)">1</button><button class="pill" onclick="pill(this,'nb',2)">2</button><button class="pill" onclick="pill(this,'nb',3)">3</button></div></div>
-    <label class="chk"><input type="checkbox" id="crazy"> Règles folles : 0 = les mains tournent, 7 = échange</label>
-    <label class="chk"><input type="checkbox" id="timer" checked> Chrono 20 s par tour</label>
-    <button class="big" onclick="solo()">⚔️ JOUER CONTRE LES BOTS</button>
+    <div id="box-bots">
+      <div><div class="lab">Niveau des bots</div><div class="row" id="pdif">
+        <button class="pill" onclick="pill(this,'dif',1)">😴 FACILE</button><button class="pill on" onclick="pill(this,'dif',2)">😎 NORMAL</button><button class="pill" onclick="pill(this,'dif',3)">😈 EXPERT</button></div></div>
+      <div><div class="lab">Nombre de bots</div><div class="row" id="pnb">
+        <button class="pill on" onclick="pill(this,'nb',1)">1</button><button class="pill" onclick="pill(this,'nb',2)">2</button><button class="pill" onclick="pill(this,'nb',3)">3</button></div></div>
+      <label class="chk"><input type="checkbox" id="crazy"> Règles folles : 0 = les mains tournent, 7 = échange</label>
+      <label class="chk"><input type="checkbox" id="timer" checked> Chrono 20 s par tour</label>
+    </div>
+    <div class="row" id="gender-av-wrap" style="margin-top:6px;">
+      <button class="pill on" id="btn-mec" onclick="pill(this,'av_g','m')">👨 JE SUIS UN MEC</button>
+      <button class="pill" id="btn-fille" onclick="pill(this,'av_g','f')">👩 JE SUIS UNE FILLE</button>
+    </div>
+    <button class="big" id="main-start-btn" onclick="startGameAction()">⚔️ LANCER LA PARTIE</button>
     <div class="row"><button class="sm" onclick="online()">🌐 CRÉER EN LIGNE</button><input class="in" id="rin" placeholder="CODE" maxlength="6" style="padding:8px"><button class="sm w" onclick="join()">REJOINDRE</button></div>
   </div>
 </div>
@@ -290,9 +308,17 @@ img.emoji{height:1.15em;width:1.15em;margin:0 .06em;vertical-align:-.2em;display
 <button id="gear" onclick="$('set').classList.toggle('hidden')" title="Son & musique">⚙️</button>
 
 <script>
-// --- GAGES ADAPTÉS SELON LE GENRE (GARÇON / FILLE) ---
-// Si c'est un mec qui joue : on lui impose d'interagir avec une fille (s'asseoir sur elle, la galocher, etc.).
-// Si c'est une fille qui joue : on lui impose d'interagir avec un garçon de la même manière intense.
+// --- LISTE DE JOUEURS ALÉATOIRES POUR ACTION OU VÉRITÉ ---
+const AVAILABLE_PLAYERS = [
+  { name: "Ines", gender: "f" },
+  { name: "Thomas", gender: "m" },
+  { name: "Sarah", gender: "f" },
+  { name: "Lucas", gender: "m" },
+  { name: "Chloé", gender: "f" },
+  { name: "Mehdi", gender: "m" },
+  { name: "Léa", gender: "f" },
+  { name: "Enzo", gender: "m" }
+];
 
 const AV_QUESTIONS_BOY = [
   "Quelle fille dans cette pièce te fait le plus craquer physiquement et pourquoi ?",
@@ -326,69 +352,93 @@ const AV_ACTIONS_GIRL = [
   "Plaque ton corps contre celui du mec de ton choix et regarde-le fixement dans les yeux en respirant fort pendant 30 secondes."
 ];
 
-// Fonction principale pour lancer le mini-jeu Action ou Vérité en détectant si le joueur est un mec ou une fille
-function startHotTruthOrDare(playerName, playerGender) {
-  const isBoy = (playerGender === 'm');
+let currentGameType = 'uno';
+let myGender = 'm';
+
+function $(id) { return document.getElementById(id); }
+
+function gsel(g) {
+  currentGameType = g;
+  document.querySelectorAll('.gt').forEach(b => b.classList.remove('on'));
+  document.querySelector(`[data-g="${g}"]`).classList.add('on');
+  
+  // Si c'est Action / Vérité, on affiche les boutons de genre au lieu des bots
+  if(g === 'av') {
+    $('box-bots').classList.add('hidden');$('gender-av-wrap').style.display = 'flex';
+  } else {
+    $('box-bots').classList.remove('hidden');$('gender-av-wrap').style.display = 'none';
+  }
+}
+
+function pill(el, type, val) {
+  el.parentNode.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  if(type === 'av_g') {
+    myGender = val;
+  }
+}
+
+// Fonction de lancement globale selon le jeu choisi
+function startGameAction() {
+  if(currentGameType === 'av') {
+    startHotTruthOrDareRandom();
+  } else {
+    // Lancement normal des autres jeux (UNO, Loup-Garou, Imposteur)
+    $('lobby').classList.add('hidden');$('game').classList.remove('hidden');
+    alert("Mode " + currentGameType.toUpperCase() + " lancé ! (Reste à connecter avec ton moteur de jeu d'origine)");
+  }
+}
+
+// Tirage aléatoire absolu pour Action ou Vérité
+function startHotTruthOrDareRandom() {
+  const customName = $('pname') ?$('pname').value.trim() : "";
+  let pool = [...AVAILABLE_PLAYERS];
+  if(customName) {
+    pool.push({ name: customName, gender: myGender });
+  }
+
+  // Le hasard choisit un joueur parmi tout le monde sans ordre fixe
+  const activePlayer = pool[Math.floor(Math.random() * pool.length)];
+  const isBoy = (activePlayer.gender === 'm');
   const isTruth = Math.random() < 0.5;
   
-  let list;
-  if (isBoy) {
-    list = isTruth ? AV_QUESTIONS_BOY : AV_ACTIONS_BOY;
-  } else {
-    list = isTruth ? AV_QUESTIONS_GIRL : AV_ACTIONS_GIRL;
-  }
-  
+  let list = isBoy ? (isTruth ? AV_QUESTIONS_BOY : AV_ACTIONS_BOY) : (isTruth ? AV_QUESTIONS_GIRL : AV_ACTIONS_GIRL);
   const item = list[Math.floor(Math.random() * list.length)];
   
   const boxHtml = `
-    <h2>🔥 ACTION OU VÉRITÉ (EXTRÊME) 🔥</h2>
-    <p style="font-size:1.2rem; color:var(--y); margin: 10px 0;"><b>${playerName}</b> (${isBoy ? 'Garçon 👨' : 'Fille 👩'}), c'est ton tour !</p>
+    <h2>🔥 ACTION OU VÉRITÉ (HASARD TOTAL) 🔥</h2>
+    <p style="font-size:1.3rem; color:var(--y); margin: 10px 0;">Le hasard a désigné : <b>${activePlayer.name}</b> (${isBoy ? 'Garçon 👨' : 'Fille 👩'}) !</p>
     <div style="background:rgba(255,46,126,0.25); border:3px solid var(--pk); padding:15px; border-radius:15px; font-size:1.1rem; font-weight:bold; margin: 10px 0; text-shadow:0 2px 4px #000;">
       ${isTruth ? "💬 VÉRITÉ : " : "⚡ ACTION PIQUANTE : "} ${item}
     </div>
     <div class="row" style="margin-top:15px;">
-      <button class="big" onclick="closePartyModal()">C'est fait / Validé 🔥</button>
-      <button class="sm" style="background:#ff3b30; color:#fff;" onclick="closePartyModal()">Abandon (Gage ultime !)</button>
+      <button class="big" onclick="startHotTruthOrDareRandom()">Tour Suivant (Hasard) 🎲</button>
+      <button class="sm" style="background:#ff3b30; color:#fff;" onclick="closePartyModal()">Quitter</button>
     </div>
   `;
-  document.getElementById('pb').innerHTML = boxHtml;
-  document.getElementById('party').classList.remove('hidden');
+  $('pb').innerHTML = boxHtml;
+  $('party').classList.remove('hidden');
 }
 
 function closePartyModal() {
-  document.getElementById('party').classList.add('hidden');
+  $('party').classList.add('hidden');$('lobby').classList.remove('hidden');
 }
 
-function gsel(g) {
-  document.querySelectorAll('.gt').forEach(b => b.classList.remove('on'));
-  document.querySelector(`[data-g="${g}"]`).classList.add('on');
-  if(g === 'av') {
-    // Récupère le genre sélectionné dans le menu (par défaut 'm' si non trouvé)
-    const selectedGenderButton = document.querySelector('#pgw .pill.on');
-    const gender = (selectedGenderButton && selectedGenderButton.textContent.includes('FILLE')) ? 'f' : 'm';
-    const name = document.getElementById('pn2').value || 'Jad';
-    setTimeout(() => { startHotTruthOrDare(name, gender); }, 300);
-  }
-}
-function pill(el, type, val) {
-  el.parentNode.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
-  el.classList.add('on');
-}
 function pnew() { alert("Mode en ligne initialisé !"); }
 function pjoin() { alert("Rejoindre la table..."); }
 function plocal() { alert("Mode un seul téléphone activé !"); }
-function solo() { 
-  document.getElementById('lobby').classList.add('hidden');
-  document.getElementById('game').classList.remove('hidden');
-  const name = document.getElementById('pname').value || 'Jad';
-  startHotTruthOrDare(name, 'm');
-}
+function solo() { startGameAction(); }
 function online() { alert("Création en ligne..."); }
 function join() { alert("Rejoindre..."); }
 function leave() { location.reload(); }
 function drawMine() { alert("Carte piochee !"); }
 function mic() { alert("Micro activé"); }
 function say() { alert("Message envoyé"); }
+
+// Cache les options de genre par défaut au chargement
+window.addEventListener('DOMContentLoaded', () => {
+  $('gender-av-wrap').style.display = 'none';
+});
 </script>
 </body>
 </html>
